@@ -12,10 +12,12 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject keyText;
     public GameObject textbgkey;
-
     public GameObject friendText;
+    public GameObject exitText;
+    public GameObject textbgexit;
 
     public bool orangeCollide;
+    public bool blueCollide;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +26,12 @@ public class PlayerMovement : MonoBehaviour
 
         keyText.SetActive(false);
         textbgkey.SetActive(false);
-
         friendText.SetActive(false);
+        exitText.SetActive(false);
+        textbgexit.SetActive(false);
 
         orangeCollide = false;
+        blueCollide = false;
     }
 
     // Update is called once per frame
@@ -70,6 +74,12 @@ public class PlayerMovement : MonoBehaviour
             friendText.SetActive(true);
             textbgkey.SetActive(true);
         }
+
+        if (blueCollide && Input.GetKeyDown(KeyCode.Space))
+        {
+            exitText.SetActive(true);
+            textbgexit.SetActive(true);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -84,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.name == "blue")
+        {
+            blueCollide = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -91,6 +106,11 @@ public class PlayerMovement : MonoBehaviour
         keyText.SetActive(false);
         textbgkey.SetActive(false);
         friendText.SetActive(false);
+        exitText.SetActive(false);
+        textbgexit.SetActive(false);
+
+        orangeCollide = false;
+        blueCollide = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
