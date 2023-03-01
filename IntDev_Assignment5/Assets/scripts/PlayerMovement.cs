@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -119,6 +120,11 @@ public class PlayerMovement : MonoBehaviour
         {
             keyCollect = true;
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.name == "exit")
+        {
+            SceneManager.LoadScene("Title Screen");
         }
     }
 }
