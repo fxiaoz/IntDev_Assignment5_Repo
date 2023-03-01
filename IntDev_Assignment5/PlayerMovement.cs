@@ -9,25 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 2f;
 
     public bool keyCollect;
-
     public GameObject keyText;
     public GameObject textbgkey;
-
-    public GameObject friendText;
-
-    public bool orangeCollide;
 
     // Start is called before the first frame update
     void Start()
     {
         keyCollect = false;
-
         keyText.SetActive(false);
         textbgkey.SetActive(false);
-
-        friendText.SetActive(false);
-
-        orangeCollide = false;
     }
 
     // Update is called once per frame
@@ -58,39 +48,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = newPos;
-
-        if (orangeCollide && Input.GetKeyDown(KeyCode.Space) && keyCollect == false)
-        {
-            keyText.SetActive(true);
-            textbgkey.SetActive(true);
-        }
-
-        if (orangeCollide && Input.GetKeyDown(KeyCode.Space) && keyCollect == true)
-        {
-            friendText.SetActive(true);
-            textbgkey.SetActive(true);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "orange")
+        if (collision.gameObject.name == "orange" && Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("collide");
-            orangeCollide = true;
+            keyText.SetActive(true);
+            textbgkey.SetActive(true);
         }
-
-        if (collision.gameObject.name == "door" && keyCollect == true)
-        {
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        keyText.SetActive(false);
-        textbgkey.SetActive(false);
-        friendText.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
