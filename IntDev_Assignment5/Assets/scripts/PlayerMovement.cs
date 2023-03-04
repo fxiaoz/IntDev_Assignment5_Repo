@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public SpriteRenderer myRenderer;
+    public Animator myAnim;
 
     public float speed = 2f;
 
@@ -43,23 +44,60 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             newPos.y += speed * Time.deltaTime;
+            myAnim.SetBool("backward", true);
+            myAnim.SetBool("forward", false);
+            myAnim.SetBool("right", false);
+            myAnim.SetBool("backward idle", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            myAnim.SetBool("backward idle", true);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
             newPos.x -= speed * Time.deltaTime;
-            //myRenderer.flipX = false;
+            myRenderer.flipX = true;
+            myAnim.SetBool("backward", false);
+            myAnim.SetBool("forward", false);
+            myAnim.SetBool("right", true);
+            myAnim.SetBool("right idle", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            myRenderer.flipX = true;
+            myAnim.SetBool("right idle", true);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             newPos.y -= speed * Time.deltaTime;
+            myAnim.SetBool("backward", false);
+            myAnim.SetBool("forward", true);
+            myAnim.SetBool("right", false);
+            myAnim.SetBool("forward idle", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            myAnim.SetBool("forward idle", true);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             newPos.x += speed * Time.deltaTime;
-            //myRenderer.flipX = true;
+            myRenderer.flipX = false;
+            myAnim.SetBool("backward", false);
+            myAnim.SetBool("forward", false);
+            myAnim.SetBool("right", true);
+            myAnim.SetBool("right idle", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            myAnim.SetBool("right idle", true);
         }
 
         transform.position = newPos;
