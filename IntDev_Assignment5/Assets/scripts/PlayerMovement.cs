@@ -21,6 +21,12 @@ public class PlayerMovement : MonoBehaviour
     public bool orangeCollide;
     public bool blueCollide;
 
+    public AudioSource mySource;
+    public AudioClip blipSound;
+    public AudioClip pickupSound;
+    public AudioClip openSound;
+    public AudioClip endSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -106,18 +112,21 @@ public class PlayerMovement : MonoBehaviour
         {
             keyText.SetActive(true);
             textbgkey.SetActive(true);
+            mySource.PlayOneShot(blipSound);
         }
 
         if (orangeCollide && Input.GetKeyDown(KeyCode.Space) && keyCollect == true)
         {
             friendText.SetActive(true);
             textbgkey.SetActive(true);
+            mySource.PlayOneShot(blipSound);
         }
 
         if (blueCollide && Input.GetKeyDown(KeyCode.Space))
         {
             exitText.SetActive(true);
             textbgexit.SetActive(true);
+            mySource.PlayOneShot(blipSound);
         }
     }
 
@@ -132,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.name == "door" && keyCollect == true)
         {
             Destroy(collision.gameObject);
+            mySource.PlayOneShot(openSound);
         }
 
         if (collision.gameObject.name == "blue")
@@ -158,10 +168,12 @@ public class PlayerMovement : MonoBehaviour
         {
             keyCollect = true;
             Destroy(collision.gameObject);
+            mySource.PlayOneShot(pickupSound);
         }
 
         if (collision.gameObject.name == "exit")
         {
+            mySource.PlayOneShot(endSound);
             SceneManager.LoadScene("Title Screen");
         }
     }
